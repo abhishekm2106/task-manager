@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/header/Header'
+import {Route,Redirect,Switch} from 'react-router-dom'
+import {auth} from './firebase'
+import SignUpPage from './components/signUpPage/SignUpPage.jsx'
+import SignInPage from './components/signInPage/SignInPage.jsx'
+import DashBoard from './components/dashboard/DashBoard'
+import {useEffect,useState} from 'react'
 
 function App() {
+
+  const [currentUser,setCurrentUser] = useState({})
+  useEffect(() =>{
+    auth.onAuthStateChanged(user=>{
+      setCurrentUser(user)
+      
+    })
+  },[])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header currentUser={currentUser}/>
+      <Switch>
+        <Route exact path="/"  render={ ()=> currentUser ? <DashBoard/> : <Redirect to='/signup'/> }/>
+        <Route path="/signup"  render={ ()=> currentUser ? <Redirect to='/'/> : <SignUpPage/>}/>
+        <Route path="/signin"  render={ ()=> currentUser ? <Redirect to='/'/> : <SignInPage/>}/>
+      </Switch>
     </div>
   );
 }
