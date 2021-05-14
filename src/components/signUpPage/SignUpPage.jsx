@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {signInWithFacebook,signInWithEmail} from '../../firebase'
+import {signInWithGoogle ,signInWithFacebook,signInWithEmail} from '../../firebase'
 
 function SignUpPage() {
     const [name,changeName] = useState('')
@@ -30,6 +30,7 @@ function SignUpPage() {
                 <button>Create account</button>
             </form>
             <button onClick={()=>signInWithFacebook()}>Sign Up With Facebook</button>
+            <button onClick={()=>signInWithGoogle()}>Sign Up With Google</button>
         </div>
     )
 }

@@ -13,7 +13,6 @@ function App() {
   useEffect(() =>{
     auth.onAuthStateChanged(user=>{
       setCurrentUser(user)
-      
     })
   },[])
 
@@ -21,10 +20,20 @@ function App() {
     <div className="App">
       <Header currentUser={currentUser}/>
       <Switch>
-        <Route exact path="/"  render={ ()=> currentUser ? <DashBoard/> : <Redirect to='/signup'/> }/>
+        {/* <Route exact path="/"  render={ ()=> currentUser ? <DashBoard/> : <Redirect to='/signup'/> }/>
         <Route path="/signup"  render={ ()=> currentUser ? <Redirect to='/'/> : <SignUpPage/>}/>
-        <Route path="/signin"  render={ ()=> currentUser ? <Redirect to='/'/> : <SignInPage/>}/>
+        <Route path="/signin"  render={ ()=> currentUser ? <Redirect to='/'/> : <SignInPage/>}/> */}
+        <Route exact path='/'>
+          <DashBoard/>
+        </Route>
+        <Route exact path='/signup'>
+          <SignUpPage/>
+        </Route>
+        <Route exact path='/signin'>
+          <SignInPage/>
+        </Route>
       </Switch>
+      {/* <button onClick={()=>{console.log(auth.currentUser)}}>f</button> */}
     </div>
   );
 }

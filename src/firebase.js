@@ -18,38 +18,47 @@ firebase.initializeApp(firebaseConfig);
 
 
 export const auth = firebase.auth()
-export const firestore = firebase.firestore()
-var provider = new firebase.auth.FacebookAuthProvider()
-export const signInWithFacebook = ()=>auth.signInWithPopup(provider).then(authenticate => console.log(authenticate)).catch((error)=>alert(error.message))
+export const db = firebase.firestore()
+
+
+const addUserToFirestore = (user)=>{
+    // console.log(user)
+    db.collection('users').doc(user.uid).set({
+        email:user.email,
+        name:user.displayName,
+        taskList:[]
+    })
+}
+
+
+var provider1 = new firebase.auth.FacebookAuthProvider()
+export const signInWithFacebook = ()=>auth.signInWithPopup(provider1)
+.then(authenticate => addUserToFirestore(authenticate.user))
+.catch((error)=>alert(error.message))
+
+
+var provider2 = new firebase.auth.GoogleAuthProvider()
+export const signInWithGoogle = ()=>auth.signInWithPopup(provider2)
+.then(authenticate => addUserToFirestore(authenticate.user))
+.catch((error)=>alert(error.message))
+
+
 export const signInWithEmail = (email, password,name)=>auth.createUserWithEmailAndPassword(email, password)
 .then(
     authenticate => {
         authenticate.user.updateProfile({
             displayName:name
         })
-        .then(() => {
-            console.log(authenticate.user)
-        }).then(
-            firestore.collection('users').doc(authenticate.user.uid).set(
-            {
-                email: email,
-                name: name,
-                taskList: []
-            }
-            )
-        )
+        .then(() => addUserToFirestore(authenticate.user))
     }
 )
 .catch(error=>{
     alert(error.message)
 })
 
-// firestore.collection('users').doc('adarshtiwari').set({
-//     name:'abhishek m'
-// }).then((users)=>{
-//     console.log('success fire')
-// }).catch((error)=>{
-//     alert(error)
-// })
 
 
+
+
+
+export default db

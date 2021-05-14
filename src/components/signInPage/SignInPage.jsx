@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { auth,signInWithFacebook } from '../../firebase'
+import { auth,signInWithFacebook,signInWithGoogle } from '../../firebase'
 
 function SignInPage() {
 
@@ -31,6 +31,7 @@ function SignInPage() {
                 <button>Sign In</button>
             </form>
             <button onClick={()=>signInWithFacebook()}>Sign In With Facebook</button>
+            <button onClick={()=>signInWithGoogle()}>Sign In With Google</button>
         </div>
     )
 }
