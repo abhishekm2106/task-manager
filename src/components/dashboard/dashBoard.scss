@@ -1,0 +1,37 @@
+.additemForm {
+  width: 53%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5em auto;
+}
+
+.additemInput {
+  width: 75%;
+}
+
+.line {
+  width: 20px;
+  height: 3px;
+  background: rgb(135, 33, 175);
+}
+
+button {
+  border-radius: 50px;
+  text-transform: uppercase;
+  padding: 0.5em 1em;
+  background-color: rgb(135, 33, 175);
+  color: white;
+  border: none;
+  font-weight: bold;
+  margin-bottom: 1em;
+  margin-top: 1em;
+
+  &:hover {
+    background-color: rgb(147, 37, 211);
+  }
+
+  &:active {
+    background-color: rgb(69, 7, 105);
+  }
+}

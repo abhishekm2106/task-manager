@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { db , auth } from '../../firebase'
+import './dashBoard.scss'
 
 import TaskItem from '../TaskItem/TaskItem'
 
@@ -25,6 +26,9 @@ function DashBoard() {
         if (auth.currentUser){
             db.collection('users').doc(auth.currentUser.uid).collection('taskList').add({text:newTask})
         }
+        else{
+            alert('you are not signed in!')
+        }
         updateNewTask('')
     }
 
@@ -32,9 +36,10 @@ function DashBoard() {
     return (
         <div>
             <h1>Stay Organised and productive</h1>
-            <form onSubmit={onSubmit}>
-                <input type="text" value={newTask} onChange={(e)=>updateNewTask(e.target.value)} required/>
-                <button>Add</button>
+            <form className="additemForm" onSubmit={onSubmit}>
+                <input className="additemInput" placeholder="Enter name of the task here" type="text" value={newTask} onChange={(e)=>updateNewTask(e.target.value)} required/>
+                <span className="line"></span>
+                <button>add item</button>
             </form>
             <ul>
                 {

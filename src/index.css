@@ -26,3 +26,11 @@ a {
   text-decoration: none;
   color: white;
 }
+
+input {
+  padding: 0.5em 1em;
+  outline: none;
+  border-radius: 50px;
+  border: 3px solid rgb(135, 37, 175);
+  margin: 5px 0;
+}
