@@ -1,10 +1,11 @@
 import './App.css';
 import Header from './components/header/Header'
-import {Route,Redirect,Switch} from 'react-router-dom'
+import {Route,Switch} from 'react-router-dom'
 import {auth} from './firebase'
 import SignUpPage from './components/signUpPage/SignUpPage.jsx'
 import SignInPage from './components/signInPage/SignInPage.jsx'
 import DashBoard from './components/dashboard/DashBoard'
+import EditPage from './components/editPage/EditPage'
 import {useEffect,useState} from 'react'
 
 function App() {
@@ -26,12 +27,11 @@ function App() {
         <Route exact path='/'>
           <DashBoard/>
         </Route>
-        <Route exact path='/signup'>
-          <SignUpPage/>
-        </Route>
-        <Route exact path='/signin'>
-          <SignInPage/>
-        </Route>
+        <Route exact path='/signup' component={SignUpPage}/>
+
+        <Route exact path='/signin' component={SignInPage}/>
+    
+        <Route path='/edit/:id' component={EditPage}/>
       </Switch>
       {/* <button onClick={()=>{console.log(auth.currentUser)}}>f</button> */}
     </div>
