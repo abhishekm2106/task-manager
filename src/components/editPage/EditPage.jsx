@@ -2,13 +2,13 @@ import React,{useState,useEffect} from 'react'
 import {db,auth} from '../../firebase'
 
 
-function EditPage({match,history}) {
+function EditPage(props) {
 
 
     const [task,editTask] = useState('')
 
     useEffect(()=>{
-        db.collection('users').doc(auth.currentUser.uid).collection('taskList').doc(match.params.id).get()
+        db.collection('users').doc(auth.currentUser.uid).collection('taskList').doc(props.match.params.id).get()//like this
         .then(task=>{
             editTask(task.data().text)
         })
@@ -17,10 +17,10 @@ function EditPage({match,history}) {
 
     const onSubmit =(e)=>{
         e.preventDefault()
-        db.collection('users').doc(auth.currentUser.uid).collection('taskList').doc(match.params.id)
+        db.collection('users').doc(auth.currentUser.uid).collection('taskList').doc(props.match.params.id)//like this
         .update({text:task})
-
-        history.push('/') //here i am able to access the history property
+        console.log(props)
+        props.history.push('/') //here i am able to access the history property //like this
 
     }
 
