@@ -14,7 +14,7 @@ function Header({currentUser}) {
                 {
                 currentUser ? 
                 <div className="header-item user-item" onClick={()=>toggleDropDown(prev=>!prev)}>
-                    <span>{typeof currentUser.displayName}</span>
+                    <span>{currentUser.displayName}</span>
                     <div className="user-image" style={{backgroundImage:`url(${currentUser.photoURL})`}}></div>
                     {
                         dropDown?
