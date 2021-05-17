@@ -17,8 +17,8 @@ function TaskItem({content,id}){
         <div className='taskItem'>
             <span>{content}</span>
             <div >
-            <Link to={`/edit/${id}`}><button className='button'>&#9998;</button></Link>
-                <button className='button' onClick={()=>onDelete()}> &#x2716; </button>
+                <dfn title='edit'><Link to={`/edit/${id}`}><button className='button'>&#9998;</button></Link></dfn>
+                <dfn title='delete task'><button className='button' onClick={()=>onDelete()}> &#x2716; </button></dfn>
             </div>
             
         </div>

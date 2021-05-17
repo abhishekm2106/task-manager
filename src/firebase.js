@@ -22,11 +22,11 @@ export const db = firebase.firestore()
 
 
 const addUserToFirestore = (user)=>{
-    // console.log(user)
+
     db.collection('users').doc(user.uid).set({
         email:user.email,
         name:user.displayName,
-        taskList:[]
+        photoURL:user.photoURL
     })
 }
 
@@ -43,7 +43,7 @@ export const signInWithGoogle = ()=>auth.signInWithPopup(provider2)
 .catch((error)=>alert(error.message))
 
 
-export const signInWithEmail = (email, password,name)=>auth.createUserWithEmailAndPassword(email, password)
+export const signUpWithEmail = (email, password,name)=>auth.createUserWithEmailAndPassword(email, password)
 .then(
     authenticate => {
         authenticate.user.updateProfile({

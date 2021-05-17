@@ -1,15 +1,14 @@
 import React,{useState} from 'react'
-import {signInWithGoogle ,signInWithFacebook,signInWithEmail} from '../../firebase'
+import {signInWithGoogle ,signInWithFacebook,signUpWithEmail} from '../../firebase'
 
-function SignUpPage({props}) {
+function SignUpPage() {
     const [name,changeName]         = useState('')
     const [email,changeEmail]       = useState('')
     const [password,changePassword] = useState('')
 
     const onSubmit = (e) => {
         e.preventDefault()
-        console.log(props) //its printing undefined i am not getting history and other props
-        signInWithEmail(email,password,name)
+        signUpWithEmail(email,password,name)
     }
 
     return (

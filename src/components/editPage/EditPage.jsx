@@ -2,25 +2,25 @@ import React,{useState,useEffect} from 'react'
 import {db,auth} from '../../firebase'
 
 
-function EditPage(props) {
+function EditPage({history,match}) {
 
 
     const [task,editTask] = useState('')
 
     useEffect(()=>{
-        db.collection('users').doc(auth.currentUser.uid).collection('taskList').doc(props.match.params.id).get()//like this
+        db.collection('users').doc(auth.currentUser.uid).collection('taskList').doc(match.params.id).get()//like this
         .then(task=>{
             editTask(task.data().text)
         })
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     const onSubmit =(e)=>{
         e.preventDefault()
-        db.collection('users').doc(auth.currentUser.uid).collection('taskList').doc(props.match.params.id)//like this
+        db.collection('users').doc(auth.currentUser.uid).collection('taskList').doc(match.params.id)//like this
         .update({text:task})
-        console.log(props)
-        props.history.push('/') //here i am able to access the history property //like this
+        
+        history.push('/') //here i am able to access the history property //like this
 
     }
 

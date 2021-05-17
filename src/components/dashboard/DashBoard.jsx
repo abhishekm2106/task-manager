@@ -1,23 +1,28 @@
 import React,{useState,useEffect} from 'react'
+import {Redirect} from 'react-router-dom'
 import { db , auth } from '../../firebase'
 import './dashBoard.scss'
 
 import TaskItem from '../TaskItem/TaskItem'
 
-function DashBoard() {
+function DashBoard(props) {
     const [newTask , updateNewTask] = useState('')
     const [taskList , updateTaskList] = useState([])
 
     useEffect(()=>{
-        auth.onAuthStateChanged(user => {
+        const unsub = auth.onAuthStateChanged(user => {
             if (user){
                 db.collection('users').doc(user.uid).collection('taskList')
                 .onSnapshot((querySnapshot)=>{
                     updateTaskList(querySnapshot.docs)
-                    console.log('updated tasklist called')
                 })
             }
+            else{
+                updateTaskList([])
+            }
         })
+
+        return unsub
     },[])
 
 
@@ -32,7 +37,7 @@ function DashBoard() {
         updateNewTask('')
     }
 
-
+    if (auth.currentUser)
     return (
         <div>
             <h1>Stay Organised and productive</h1>
@@ -47,6 +52,10 @@ function DashBoard() {
                 }
             </ul>
         </div>
+    )
+    else 
+    return (
+        <Redirect to='/signin'/>
     )
 }
 

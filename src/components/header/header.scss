@@ -21,9 +21,10 @@
 
   .drop-down {
     position: absolute;
-    right: 0em;
     bottom: 0%;
+    right: 0%;
     transform: translate(0, 100%);
+    width: 100%;
     padding: 0 1em;
     display: flex;
     flex-direction: column;
@@ -33,6 +34,12 @@
     &-item {
       padding: 0.5em 1em;
     }
+  }
+
+  .user-item {
+    min-width: 8rem;
+    display: flex;
+    justify-content: center;
   }
 
   &-item {
