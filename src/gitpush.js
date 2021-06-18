@@ -1,6 +1,6 @@
 const GitPush = () => {
     return (  
-        'hello this is local editing in maain braanch'
+        'hello this is local editing from new branch'
     );
 }
  
