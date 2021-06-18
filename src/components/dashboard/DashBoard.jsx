@@ -35,7 +35,6 @@ function DashBoard({currentUser}) {
         updateNewTask('')
     }
 
-
     return (
         <>
             {

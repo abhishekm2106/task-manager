@@ -4,4 +4,4 @@ const GitPush = () => {
     );
 }
  
-export default GitPull;
+export default GitPush;
