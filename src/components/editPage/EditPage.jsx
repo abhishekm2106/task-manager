@@ -1,14 +1,17 @@
 import React,{useState,useEffect} from 'react'
 import {db,auth} from '../../firebase'
+import {useHistory,useParams} from 'react-router-dom'
 
 
-function EditPage({history,match}) {
+function EditPage() {
 
 
     const [task,editTask] = useState('')
+    const history = useHistory()
+    const params = useParams()
 
     useEffect(()=>{
-        db.collection('users').doc(auth.currentUser.uid).collection('taskList').doc(match.params.id).get()//like this
+        db.collection('users').doc(auth.currentUser.uid).collection('taskList').doc(params.id).get()//like this
         .then(task=>{
             editTask(task.data().text)
         })
@@ -17,7 +20,7 @@ function EditPage({history,match}) {
 
     const onSubmit =(e)=>{
         e.preventDefault()
-        db.collection('users').doc(auth.currentUser.uid).collection('taskList').doc(match.params.id)//like this
+        db.collection('users').doc(auth.currentUser.uid).collection('taskList').doc(params.id)//like this
         .update({text:task})
         
         history.push('/') //here i am able to access the history property //like this

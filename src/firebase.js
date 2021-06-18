@@ -24,6 +24,7 @@ export const db = firebase.firestore()
 const addUserToFirestore = (user)=>{
 
     db.collection('users').doc(user.uid).set({
+        uid:user.uid,
         email:user.email,
         name:user.displayName,
         photoURL:user.photoURL

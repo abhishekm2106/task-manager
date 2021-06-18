@@ -2,7 +2,7 @@
 import './App.css';
 import Header from './components/header/Header'
 import {Route,Switch,useHistory} from 'react-router-dom'
-import {auth} from './firebase'
+import {auth,db} from './firebase'
 import SignUpPage from './components/signUpPage/SignUpPage.jsx'
 import SignInPage from './components/signInPage/SignInPage.jsx'
 import DashBoard from './components/dashboard/DashBoard'
@@ -11,30 +11,52 @@ import {useEffect,useState} from 'react'
 import ProfilePage from './components/ProfilePage/ProfilePage';
 
 function App() {
-  const [currentUser,setCurrentUser] = useState({})
+  const [currentUser,setCurrentUser] = useState()
   const history = useHistory()
 
   useEffect(() =>{
-    auth.onAuthStateChanged(user=>{
-      setCurrentUser(user)
-      if (user) history.push('/')
+    const unsubAuth = auth.onAuthStateChanged(user=>{
+      if(user){
+        db.collection('users').doc(user.uid).get().then(snapshot=>{
+            setCurrentUser(snapshot.data())
+        })
+      }
+      
+      else{
+        setCurrentUser(null)
+      }
     })
+
+    return unsubAuth
   },[])
 
   return (
     <div className="App">
-      <Header currentUser={currentUser}/>
-      <Switch>
-        {/* <Route exact path="/"  render={ ()=> currentUser ? <DashBoard/> : <Redirect to='/signup'/> }/>
-        <Route path="/signup"  render={ ({match,history})=> currentUser ? <Redirect  to='/'/> : <SignUpPage match={ match} history={ history }/>}/>
-        <Route path="/signin"  render={ ()=> currentUser ? <Redirect to='/'/> : <SignInPage/>}/>
-        <Route path="/edit/:id"  render={ ({match,history})=> currentUser ? <EditPage match={match} history={history}/> : <SignInPage/>}/> */}
 
-        <Route path="/"  exact component={DashBoard}/>
-        <Route path="/signin" component={SignInPage}/>
-        <Route path='/signup' component={SignUpPage}/>
-        <Route path='/edit/:id' component={EditPage}/>
-        <Route path='/user/:uid' component={ProfilePage}/>
+      <Header currentUser={currentUser}/>
+      
+      <Switch>
+
+        <Route path="/"  exact currentUser={currentUser}>
+          <DashBoard currentUser={currentUser}/>
+        </Route> 
+
+        <Route path="/signin" >
+          <SignInPage/>
+        </Route>
+
+        <Route path='/signup' >
+          <SignUpPage/>
+        </Route>
+
+        <Route path='/edit/:id' >
+          <EditPage/>
+        </Route>
+
+        <Route path='/user/:uid' >
+          <ProfilePage/>
+        </Route>
+
       </Switch>
       
       <p className='credit'>Made with ❤️ by Abhishek Mohanty</p>
