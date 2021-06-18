@@ -40,7 +40,7 @@ function DashBoard(props) {
     if (auth.currentUser)
     return (
         <div>
-            <h1>Stay Organised and productive</h1>
+            <h1>Stay Organised and productive like me</h1>
             <form className="additemForm" onSubmit={onSubmit}>
                 <input className="additemInput" placeholder="Enter name of the task here" type="text" value={newTask} onChange={(e)=>updateNewTask(e.target.value)} required/>
                 <span className="line"></span>
