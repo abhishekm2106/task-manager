@@ -1,6 +1,6 @@
 const GitPush = () => {
     return (  
-        'hello this is local editing from new branch boy'
+        'hello this is remote editing 5'
     );
 }
  
